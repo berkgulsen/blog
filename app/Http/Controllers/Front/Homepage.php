@@ -23,4 +23,14 @@ class Homepage extends Controller
         $data['categories']=Category::get();
         return view('front.single',$data);
     }
+
+    public function category($slug){
+        $category=Category::whereSlug($slug)->first() ?? abort(403,'Boyle bir kategori bulunamadi');
+        $data['category']=$category;
+        $data['articles']=Article::where('categoryId',$category->id)->orderBy('created_at','DESC')->get();
+        $data['categories']=Category::get();
+
+        return view('front.category',$data);
+
+    }
 }
