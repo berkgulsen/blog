@@ -10,7 +10,7 @@ use App\Models\Category;
 class Homepage extends Controller
 {
     public function index(){
-        $data['articles']=Article::orderBy('created_at','DESC')->get();
+        $data['articles']=Article::orderBy('created_at','DESC')->paginate(5);
         $data['categories']=Category::get();
         return view('front.homepage',$data);
     }
@@ -27,7 +27,7 @@ class Homepage extends Controller
     public function category($slug){
         $category=Category::whereSlug($slug)->first() ?? abort(403,'Boyle bir kategori bulunamadi');
         $data['category']=$category;
-        $data['articles']=Article::where('categoryId',$category->id)->orderBy('created_at','DESC')->get();
+        $data['articles']=Article::where('categoryId',$category->id)->orderBy('created_at','DESC')->paginate(5);
         $data['categories']=Category::get();
 
         return view('front.category',$data);
