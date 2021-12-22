@@ -1,6 +1,6 @@
 @extends('front.layouts.master')
 @section('title',$page->title)
-@section('bg',$page->imagePath)
+@section('bg',$page->image)
 @section('content')
 
 
