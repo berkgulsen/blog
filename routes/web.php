@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Back\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -9,11 +10,11 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->name('admin.')->middleware(['isAdmin'])->group(function (){
     Route::get('panel','App\Http\Controllers\Back\Dashboard@index')->name('dashboard');
+    Route::resource('makaleler',ArticleController::class);
     Route::get('cikis','App\Http\Controllers\Back\AuthController@logout')->name('logout');
 
 });
 Route::prefix('admin')->name('admin.')->middleware(['isLogin'])->group(function (){
-
     Route::get('giris','App\Http\Controllers\Back\AuthController@login')->name('login');
     Route::post('giris','App\Http\Controllers\Back\AuthController@loginPost')->name('login.post');
 });

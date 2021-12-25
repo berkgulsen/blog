@@ -21,6 +21,7 @@ class Articles extends Migration
             $table->longText('content');
             $table->string('slug');
             $table->integer('hit')->default(0);
+            $table->integer('status')->default(0)->comment('0:pasif 1:aktif');
             $table->timestamps();
 
             $table->foreign('categoryId')
