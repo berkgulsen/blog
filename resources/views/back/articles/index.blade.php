@@ -36,7 +36,7 @@
                         @foreach($articles as $article)
                             <tr>
                                 <td>
-                                    <img src="{{$article->imagePath}}" width="150px" alt="">
+                                    <img src="{{asset($article->imagePath)}}" width="150px">
                                 </td>
                                 <td>{{$article->title}}</td>
                                 <td>{{$article->getCategory->name}}</td>
