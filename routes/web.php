@@ -11,6 +11,7 @@ use App\Http\Controllers\Back\ArticleController;
 Route::prefix('admin')->name('admin.')->middleware(['isAdmin'])->group(function (){
     Route::get('panel','App\Http\Controllers\Back\Dashboard@index')->name('dashboard');
     Route::resource('makaleler',ArticleController::class);
+    Route::get('/switch','App\Http\Controllers\Back\ArticleController@switch')->name('switch');
     Route::get('cikis','App\Http\Controllers\Back\AuthController@logout')->name('logout');
 
 });

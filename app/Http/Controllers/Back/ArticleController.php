@@ -78,7 +78,9 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article=Article::findOrFail($id);
+        $categories=Category::all();
+        return view('back.articles.update',compact('categories','article'));
     }
 
     /**
@@ -90,7 +92,23 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title'=>'min:3',
+            'image'=>'image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+        $article = Article::findOrFail($id);
+        $article->title=$request->title;
+        $article->categoryId=$request->category;
+        $article->content=$request->content;
+        $article->slug=str::slug($request->title);
+        if ($request->hasFile('image')){
+            $imageName=str::slug($request->title).'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path('uploads'),$imageName);
+            $article->imagePath='uploads/'.$imageName;
+        }
+        $article->save();
+        toastr()->success('Başarılı!', 'Makale başarıyla güncellendi.');
+        return redirect()->route('admin.makaleler.index');
     }
 
     /**
@@ -102,5 +120,11 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function switch(Request $request){
+        $article=Article::findOrFail($request->id);
+        $article->status=$request->statu=="true" ? 1 : 0;
+        $article->save();
     }
 }
