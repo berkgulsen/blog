@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Category;
+use Illuminate\Support\Facades\File;
+
+use function PHPUnit\Framework\returnArgument;
 
 class ArticleController extends Controller
 {
@@ -126,5 +129,32 @@ class ArticleController extends Controller
         $article=Article::findOrFail($request->id);
         $article->status=$request->statu=="true" ? 1 : 0;
         $article->save();
+    }
+
+    public function delete($id){
+        Article::find($id)->delete();
+        toastr()->success('Makale başarıyla silinen makalelere taşındı.');
+        return redirect()->back();
+    }
+
+    public function trashed(){
+        $articles=Article::onlyTrashed()->orderBy('deleted_at','ASC')->get();
+        return view('back.articles.trashed',compact('articles'));
+    }
+
+    public function recover($id){
+        Article::onlyTrashed()->find($id)->restore();
+        toastr()->success('Makale başarıyla geri getirildi');
+        return redirect()->back();
+    }
+
+    public function harddelete($id){
+        $article=Article::onlyTrashed()->find($id);
+        if (File::exists($article->imagePath)){
+            File::delete(public_path($article->imagePath));
+        }
+        $article->forceDelete();
+        toastr()->success('Makale başarıyla silindi');
+        return redirect()->back();
     }
 }
