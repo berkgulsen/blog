@@ -17,6 +17,7 @@ class Categories extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->integer('status')->default(1)->comment('0:pasif 1:aktif');
             $table->timestamps();
         });
     }

@@ -10,12 +10,19 @@ use App\Http\Controllers\Back\ArticleController;
 */
 Route::prefix('admin')->name('admin.')->middleware(['isAdmin'])->group(function (){
     Route::get('panel','App\Http\Controllers\Back\Dashboard@index')->name('dashboard');
+
+    //ARTICLE ROUTES
     Route::get('/makaleler/silinenler','App\Http\Controllers\Back\ArticleController@trashed')->name('trashed.article');
     Route::resource('makaleler',ArticleController::class);
     Route::get('/switch','App\Http\Controllers\Back\ArticleController@switch')->name('switch');
     Route::get('/deletearticle/{id}','App\Http\Controllers\Back\ArticleController@delete')->name('delete.article');
     Route::get('/harddeletearticle/{id}','App\Http\Controllers\Back\ArticleController@harddelete')->name('hard.delete.article');
     Route::get('/recoverarticle/{id}','App\Http\Controllers\Back\ArticleController@recover')->name('recover.article');
+
+    //CATEGORY ROUTES
+    Route::get('/kategoriler','App\Http\Controllers\Back\CategoryController@index')->name('category.index');
+    Route::get('/kategori/status','App\Http\Controllers\Back\CategoryController@switch')->name('category.switch');
+
     Route::get('cikis','App\Http\Controllers\Back\AuthController@logout')->name('logout');
 
 });
