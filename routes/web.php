@@ -21,6 +21,7 @@ Route::prefix('admin')->name('admin.')->middleware(['isAdmin'])->group(function 
 
     //CATEGORY ROUTES
     Route::get('/kategoriler','App\Http\Controllers\Back\CategoryController@index')->name('category.index');
+    Route::post('/kategoriler/create','App\Http\Controllers\Back\CategoryController@create')->name('category.create');
     Route::get('/kategori/status','App\Http\Controllers\Back\CategoryController@switch')->name('category.switch');
 
     Route::get('cikis','App\Http\Controllers\Back\AuthController@logout')->name('logout');

@@ -9,7 +9,16 @@
                 <h6 class="m-0 font-weight-bold text-primary">Yeni Kategori Oluştur</h6>
             </div>
             <div class="card-body">
-                dd
+                <form method="POST" action="{{route('admin.category.create')}}">
+                    @csrf
+                    <div class="form-group">
+                        <label>Kategori Adı</label>
+                        <input type="text" class="form-control" name="category" required />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block ">Ekle</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -43,7 +52,7 @@
                                 <td>{{$category->name}}</td>
                                 <td>{{$category->articleCount()}}</td>
                                 <td>
-                                    <input class="switch" article-id="{{$category->id}}" type="checkbox" data-on="Aktif" data-off="Pasif" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" {!! $category->status==0 ? "" : "checked" !!}>
+                                    <input class="switch" category-id="{{$category->id}}" type="checkbox" data-on="Aktif" data-off="Pasif" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" {!! $category->status==0 ? "" : "checked" !!}>
                                 </td>
                                 <td>
                                 </td>
