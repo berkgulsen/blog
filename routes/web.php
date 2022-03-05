@@ -22,7 +22,9 @@ Route::prefix('admin')->name('admin.')->middleware(['isAdmin'])->group(function 
     //CATEGORY ROUTES
     Route::get('/kategoriler','App\Http\Controllers\Back\CategoryController@index')->name('category.index');
     Route::post('/kategoriler/create','App\Http\Controllers\Back\CategoryController@create')->name('category.create');
+    Route::post('/kategoriler/update','App\Http\Controllers\Back\CategoryController@update')->name('category.update');
     Route::get('/kategori/status','App\Http\Controllers\Back\CategoryController@switch')->name('category.switch');
+    Route::get('/kategori/getdata','App\Http\Controllers\Back\CategoryController@getData')->name('category.getdata');
 
     Route::get('cikis','App\Http\Controllers\Back\AuthController@logout')->name('logout');
 

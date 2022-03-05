@@ -35,4 +35,26 @@ class CategoryController extends Controller
         toastr()->success('Kategori başarıyla oluşturuldu');
         return redirect()->back();
     }
+
+    public function getData(Request $request){
+        $category=Category::findOrFail($request->id);
+        return response()->json($category);
+    }
+
+    public function update(Request $request){
+        $isSlug= Category::whereSlug(str::slug($request->slug))->whereNotIn('id',[$request->id])->first();
+        $isName= Category::whereName($request->category)->whereNotIn('id',[$request->id])->first();
+
+        if ($isSlug or $isName){
+            toastr()->error($request->category."adında bir kategori zaten mevcut.");
+            return redirect()->back();
+        }
+
+        $category = Category::find($request->id);
+        $category->name=$request->category;
+        $category->slug=str::slug($request->slug);
+        $category->save();
+        toastr()->success('Kategori başarıyla güncellendi');
+        return redirect()->back();
+    }
 }
