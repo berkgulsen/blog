@@ -56,6 +56,7 @@
                                 </td>
                                 <td>
                                     <a category-id="{{$category->id}}" data-toggle="modal" data-target="#editModal" class="btn btn-sm btn-primary edit-click" title="Kategoriyi Düzenle"><i class="fa fa-edit text-white"></i></a>
+                                    <a category-id="{{$category->id}}" category-name="{{$category->name}}" category-count="{{$category->articleCount()}}" data-toggle="modal" data-target="#deleteModal" class="btn btn-sm btn-danger remove-click" title="Kategoriyi Sil"><i class="fa fa-times text-white"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -70,7 +71,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Kategoriyi Düzenle</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -97,6 +98,32 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Kategoriyi Sil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="body" class="modal-body">
+                <div id="articleAlert" class="alert alert-danger">
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                <form method="POST" action="{{route('admin.category.delete')}}">
+                    @csrf
+                    <input type="hidden" name="id" id="deleteId">
+                    <button id="deleteButton" type="submit" class="btn btn-danger">Sil</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('css')
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
@@ -119,6 +146,32 @@
                         $('#editModal').modal();
                     }
                 })
+            })
+        })
+
+        $(function(){
+            $('.remove-click').click(function (){
+                id = $(this)[0].getAttribute('category-id');
+                count = $(this)[0].getAttribute('category-count');
+                name = $(this)[0].getAttribute('category-name');
+                if (id==1){
+                    $('#articleAlert').html(name+' kategorisi sabit kategoridir. Silinen diğer kategorilere ait makaleler buraya eklenecektik.')
+                    $('#body').show();
+                    $('#deleteButton').hide();
+                    $('#deleteModal').modal();
+                    return;
+                }
+
+                $('#deleteId').val(id);
+                $('#articleAlert').html('');
+                $('#body').hide();
+                $('#deleteButton').show();
+
+                if(count>0){
+                    $('#articleAlert').html('Bu kategoriye ait '+count+' makale bulunmaktadır. Silmek istediğinize emin misiniz?');
+                    $('#body').show();
+                }
+                $('#deleteModal').modal();
             })
         })
 
