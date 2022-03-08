@@ -30,7 +30,7 @@
                         @foreach($pages as $page)
                             <tr>
                                 <td>
-                                    <img src="{{asset($page->imagePath)}}" width="150px">
+                                    <img src="{{asset($page->image)}}" width="150px">
                                 </td>
                                 <td>{{$page->title}}</td>
                                 <td>
@@ -38,8 +38,8 @@
                                 </td>
                                 <td>
                                     <a href="{{route('page',$page->slug)}}" target="_blank" title="Görüntüle" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
-                                    <a href="{{route('admin.makaleler.edit',$page->id)}}" title="Düzenle" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
-                                    <a href="" title="Sil" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                                    <a href="{{route('admin.page.edit',$page->id)}}" title="Düzenle" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
+                                    <a href="{{route('admin.page.delete', $page->id)}}" title="Sil" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                         @endforeach

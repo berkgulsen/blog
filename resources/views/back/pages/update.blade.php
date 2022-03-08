@@ -1,5 +1,5 @@
 @extends('back.layouts.master')
-@section('title',$article->title.' makalesini güncelle')
+@section('title',$page->title.' sayfasını güncelle')
 
 @section('content')
     <!-- DataTales Example -->
@@ -15,33 +15,31 @@
                     @endforeach
                 </div>
             @endif
-            <form method="POST" action="{{route('admin.makaleler.update',$article->id)}}"  enctype="multipart/form-data">
-                @method('PUT')
+            <form method="POST" action="{{route('admin.page.edit.post', $page->id)}}"  enctype="multipart/form-data">
+                @method('POST')
                 @csrf
                 <div class="form-group">
-                    <label for="">Makale Başlığı</label>
-                    <input type="text" name="title" value="{{$article->title}}" class="form-control" required>
+                    <label for="">Sayfa Başlığı</label>
+                    <input type="text" name="title" value="{{$page->title}}" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="">Makale Kategorisi</label>
-                    <select type="text" name="category" class="form-control" required>
+                    <select type="text" name="category" class="form-control" >
                         <option value="">Seçim Yapınız</option>
-                        @foreach($categories as $category)
-                            <option @if($article->categoryId == $category->id) selected @endif value="{{$category->id}}">{{$category->name}}</option>
-                        @endforeach
+
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="">Makale Fotoğrafı</label> <br>
-                    <img src="{{asset($article->imagePath)}}" class="mb-3 img-thumbnail rounded" width="300px" alt="">
+                    <label for="">Sayfa Fotoğrafı</label> <br>
+                    <img src="{{asset($page->image)}}" class="mb-3 img-thumbnail rounded" width="300px" alt="">
                     <input type="file" name="image" class="form-control" >
                 </div>
                 <div class="form-group">
-                    <label for="">Makale İçeriği</label>
-                    <textarea type="text" name="content" id="editor"  class="form-control" required>{!! $article->content !!}</textarea>
+                    <label for="">Sayfa İçeriği</label>
+                    <textarea type="text" name="content" id="editor"  class="form-control" required>{!! $page->content !!}</textarea>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Makaleyi Güncelle</button>
+                    <button type="submit" class="btn btn-primary btn-block">Sayfayı Güncelle</button>
                 </div>
             </form>
         </div>

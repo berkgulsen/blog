@@ -29,7 +29,13 @@ Route::prefix('admin')->name('admin.')->middleware(['isAdmin'])->group(function 
 
     //PAGE ROUTES
     Route::get('/sayfalar','App\Http\Controllers\Back\PageController@index')->name('page.index');
+    Route::get('/sayfalar/create','App\Http\Controllers\Back\PageController@create')->name('page.create');
+    Route::get('/sayfalar/update/{id}','App\Http\Controllers\Back\PageController@update')->name('page.edit');
+    Route::post('/sayfalar/update/{id}','App\Http\Controllers\Back\PageController@updatePost')->name('page.edit.post');
+    Route::post('/sayfalar/store','App\Http\Controllers\Back\PageController@store')->name('page.store');
     Route::get('/sayfa/switch','App\Http\Controllers\Back\PageController@switch')->name('page.switch');
+    Route::get('/sayfa/delete/{id}','App\Http\Controllers\Back\PageController@delete')->name('page.delete');
+
 
 
     Route::get('cikis','App\Http\Controllers\Back\AuthController@logout')->name('logout');

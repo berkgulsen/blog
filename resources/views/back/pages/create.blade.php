@@ -1,5 +1,5 @@
 @extends('back.layouts.master')
-@section('title','Makale Oluştur')
+@section('title','Sayfa Oluştur')
 
 @section('content')
     <!-- DataTales Example -->
@@ -15,31 +15,22 @@
                     @endforeach
                 </div>
             @endif
-            <form method="POST" action="{{route('admin.makaleler.store')}}"  enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.page.store')}}"  enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for="">Makale Başlığı</label>
+                    <label for="">Sayfa Başlığı</label>
                     <input type="text" name="title" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="">Makale Kategorisi</label>
-                    <select type="text" name="category" class="form-control" required>
-                        <option value="">Seçim Yapınız</option>
-                        @foreach($categories as $category)
-                            <option value="{{$category->id}}">{{$category->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="">Makale Fotoğrafı</label>
+                    <label for="">Sayfa Fotoğrafı</label>
                     <input type="file" name="image" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="">Makale İçeriği</label>
+                    <label for="">Sayfa İçeriği</label>
                     <textarea type="text" name="content" id="editor" class="form-control" required></textarea>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Makaleyi Oluştur</button>
+                    <button type="submit" class="btn btn-primary btn-block">Sayfayı Oluştur</button>
                 </div>
             </form>
         </div>
