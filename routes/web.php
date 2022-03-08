@@ -34,6 +34,7 @@ Route::prefix('admin')->name('admin.')->middleware(['isAdmin'])->group(function 
     Route::post('/sayfalar/update/{id}','App\Http\Controllers\Back\PageController@updatePost')->name('page.edit.post');
     Route::post('/sayfalar/store','App\Http\Controllers\Back\PageController@store')->name('page.store');
     Route::get('/sayfa/switch','App\Http\Controllers\Back\PageController@switch')->name('page.switch');
+    Route::get('/sayfa/siralama','App\Http\Controllers\Back\PageController@orders')->name('page.orders');
     Route::get('/sayfa/delete/{id}','App\Http\Controllers\Back\PageController@delete')->name('page.delete');
 
 

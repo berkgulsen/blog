@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class PageController extends Controller
 {
     public function index(){
-        $pages=Page::all();
+        $pages=Page::orderBy('order','DESC')->get();
         return view('back.pages.index',compact('pages'));
     }
 
@@ -69,6 +69,13 @@ class PageController extends Controller
         $page=Page::findOrFail($request->id);
         $page->status=$request->statu=="true" ? 1 : 0;
         $page->save();
+    }
+
+    public function orders(Request $request){
+        print_r($request->get('page'));
+        foreach ($request->get('page') as $key => $order){
+            Page::where('id',$order)->update(['order'=>$key]);
+        }
     }
 
     public function delete($id){
