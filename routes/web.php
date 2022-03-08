@@ -27,6 +27,11 @@ Route::prefix('admin')->name('admin.')->middleware(['isAdmin'])->group(function 
     Route::get('/kategori/status','App\Http\Controllers\Back\CategoryController@switch')->name('category.switch');
     Route::get('/kategori/getdata','App\Http\Controllers\Back\CategoryController@getData')->name('category.getdata');
 
+    //PAGE ROUTES
+    Route::get('/sayfalar','App\Http\Controllers\Back\PageController@index')->name('page.index');
+    Route::get('/sayfa/switch','App\Http\Controllers\Back\PageController@switch')->name('page.switch');
+
+
     Route::get('cikis','App\Http\Controllers\Back\AuthController@logout')->name('logout');
 
 });
