@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\Page;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 
 class Homepage extends Controller
@@ -63,13 +64,23 @@ class Homepage extends Controller
 
             return redirect()->route('contact')->withErrors($validate)->withInput();
         }
+            Mail::send([],[],function ($message) use($request){
+                $message->from('iletisim@blogsitesi.com','Blog Sitesi');
+                $message->to('bipurpie.exe@gmail.com');
+                $message->setBody(' Mesajı gönderen: '.$request->name.'<br/>
+                                    Mesajı gönderen mail: '. $request->email.'<br/>
+                                    Mesaj Konusu: '.$request->topic.'<br/>
+                                    Mesaj: '.$request->message.'<br/><br/>
+                                    Mesaj gönderilme tarihi '.now(),'text/html');
+                $message->subject($request->name.'iletişimden mesaj gönderdi');
+            });
 
-            $contact = new Contact;
-            $contact->name=$request->name;
-            $contact->email=$request->email;
-            $contact->topic=$request->topic;
-            $contact->message=$request->message;
-            $contact->save();
+        //    $contact = new Contact;
+        //    $contact->name=$request->name;
+        //    $contact->email=$request->email;
+        //    $contact->topic=$request->topic;
+        //    $contact->message=$request->message;
+        //    $contact->save();
             return redirect()->route('contact')->with('success','Mesajınız iletilmiştir.');
 
 
