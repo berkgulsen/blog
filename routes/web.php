@@ -37,7 +37,9 @@ Route::prefix('admin')->name('admin.')->middleware(['isAdmin'])->group(function 
     Route::get('/sayfa/siralama','App\Http\Controllers\Back\PageController@orders')->name('page.orders');
     Route::get('/sayfa/delete/{id}','App\Http\Controllers\Back\PageController@delete')->name('page.delete');
 
-
+    //CONFIG ROUTES
+    Route::get('/ayarlar','App\Http\Controllers\Back\ConfigController@index')->name('config.index');
+    Route::post('/ayarlar/update','App\Http\Controllers\Back\ConfigController@update')->name('config.update');
 
     Route::get('cikis','App\Http\Controllers\Back\AuthController@logout')->name('logout');
 
@@ -54,6 +56,9 @@ Route::prefix('admin')->name('admin.')->middleware(['isLogin'])->group(function 
 |--------------------------------------------------------------------------
 */
 
+Route::get('/site-bakimda',function(){
+    return view('front.offline');
+});
 Route::get('/','App\Http\Controllers\Front\Homepage@index')->name('homepage');
 Route::get('/iletisim','App\Http\Controllers\Front\Homepage@contact')->name('contact');
 Route::post('/iletisim','App\Http\Controllers\Front\Homepage@contactpost')->name('contact.post');
