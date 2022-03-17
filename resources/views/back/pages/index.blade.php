@@ -35,7 +35,7 @@
                         @foreach($pages as $page)
                             <tr id="page_{{$page->id}}">
                                 <td class="text-center" style="width: 1%">
-                                    <i class="fa fa-arrows-alt-v fa-3x handle" style="cursor: move">{{$page->order+1}}</i>
+                                    <i class="fa fa-arrows-alt-v fa-3x handle" style="cursor: move">{{$page->order}}</i>
                                 </td>
                                 <td>
                                     <img src="{{asset($page->image)}}" width="150px">

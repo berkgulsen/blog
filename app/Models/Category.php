@@ -11,6 +11,6 @@ class Category extends Model
 
     public function articleCount(){
 
-        return $this->hasMany('App\Models\Article','categoryId','id')->count();
+        return $this->hasMany('App\Models\Article','categoryId','id')->where('status',1)->count();
     }
 }
